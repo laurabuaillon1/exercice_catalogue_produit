@@ -88,7 +88,7 @@ function filtrerProduits() {
     const recherche = rechercheActive.toLowerCase();
     const matchRecherche = nomProduit.includes(recherche);
     let matchCategorie = false;
-
+    
     if (categorieActive === "tous") {
       matchCategorie = true;
     } else if (produit.categorie === categorieActive) {
@@ -108,12 +108,15 @@ function filtrerProduits() {
 afficherProduits(produits);
 
 /*GESTION DES INTERACTIONS UTILISATEURS*/
+
+/*bouton textuelle*/
 inputRecherche.addEventListener("input", (event) => {
   console.log(event.target.value);
   rechercheActive = event.target.value;
   filtrerProduits();
 });
 
+/*boutons de categorie*/
 boutonsFiltre.forEach((bouton) => {
   bouton.addEventListener("click", (event) => {
     boutonsFiltre.forEach((btn) => {

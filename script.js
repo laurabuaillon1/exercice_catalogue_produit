@@ -3,37 +3,37 @@ const produits = [
     nom: "Smartphone X",
     categorie: "Électronique",
     prix: 699,
-    image: "https://via.placeholder.com/200x150?text=Smartphone",
+    image: "https://placehold.co/200x150?text=Smartphone",
   },
   {
     nom: "Roman Policier",
     categorie: "Livres",
     prix: 14,
-    image: "https://via.placeholder.com/200x150?text=Livre",
+    image: "https://placehold.co/200x150?text=Livre",
   },
   {
     nom: "T-shirt Coton",
     categorie: "Vêtements",
     prix: 25,
-    image: "https://via.placeholder.com/200x150?text=T-shirt",
+    image: "https://placehold.co/200x150?text=T-shirt",
   },
   {
     nom: "Casque Bluetooth",
     categorie: "Électronique",
     prix: 89,
-    image: "https://via.placeholder.com/200x150?text=Casque",
+    image: "https://placehold.co/200x150?text=Casque",
   },
   {
     nom: "Sweat à capuche",
     categorie: "Vêtements",
     prix: 40,
-    image: "https://via.placeholder.com/200x150?text=Sweat",
+    image: "https://placehold.co/200x150?text=Sweat",
   },
   {
     nom: "Essai Historique",
     categorie: "Livres",
     prix: 19,
-    image: "https://via.placeholder.com/200x150?text=Essai",
+    image: "https://placehold.co/200x150?text=Essai",
   },
 ];
 
@@ -44,11 +44,10 @@ const inputRecherche = document.querySelector("#site-search");
 const boutonsFiltre = document.querySelectorAll(".btn-filtre");
 const noResultsMessage = document.querySelector("#error__message");
 
-let categorieActive = "Tous";
+let categorieActive = "tous";
 let rechercheActive = "";
 
 /* Affichage des Produits (afficherProduits)*/
-
 function afficherProduits(produitAafficher) {
   containerProduits.replaceChildren();
 
@@ -60,7 +59,7 @@ function afficherProduits(produitAafficher) {
 
   for (let produit of produitAafficher) {
     let carteProduit = document.createElement("div");
-    carteProduit.classList.add("product")
+    carteProduit.classList.add("product");
     let img = document.createElement("img");
     img.src = produit.image;
     img.alt = produit.nom + "-" + produit.categorie;
@@ -81,22 +80,53 @@ function afficherProduits(produitAafficher) {
   }
 }
 
-afficherProduits(produits);
-
 /*Logique de filtrage*/
 
-function filtrerProduits (afficherProduitsFiltrer){
+function filtrerProduits() {
+  const resultat = produits.filter((produit) => {
+    const nomProduit = produit.nom.toLowerCase();
+    const recherche = rechercheActive.toLowerCase();
+    const matchRecherche = nomProduit.includes(recherche);
+    let matchCategorie = false;
 
-    const resultat = produits.filter(produit => {
-        
-        if(categorieActive === "Tous"){
+    if (categorieActive === "tous") {
+      matchCategorie = true;
+    } else if (produit.categorie === categorieActive) {
+      matchCategorie = true;
+    }
 
-        }else{}
-    });
+    if (matchCategorie && matchRecherche) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  afficherProduits(resultat);
 }
 
+afficherProduits(produits);
 
+/*GESTION DES INTERACTIONS UTILISATEURS*/
+inputRecherche.addEventListener("input", (event) => {
+  console.log(event.target.value);
+  rechercheActive = event.target.value;
+  filtrerProduits();
+});
 
+boutonsFiltre.forEach((bouton) => {
+  bouton.addEventListener("click", (event) => {
+    boutonsFiltre.forEach((btn) => {
+      btn.classList.remove("active");
+    });
+    console.log(boutonsFiltre)
+    bouton.classList.add("active");
+    categorieActive = event.currentTarget.dataset.categorie;
+     console.log("Catégorie cliquée:", categorieActive);
+    console.log("Produits disponibles:", produits);
+    filtrerProduits();
+  });
+});
 
 /*
 1. Préparation des Données et du Contexte

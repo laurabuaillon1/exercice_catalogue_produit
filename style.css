@@ -29,16 +29,29 @@ label{
     color: rgb(51, 51, 51);
 }
 
-button{
+.btn-filtre{
      padding: 8px;
-    background-color: aliceblue;
+    background-color: rgb(122, 122, 122);
     border-radius: 8px;
     border: none;
     font-family: "Roboto", sans-serif;
     font-size: 12px;
     font-weight: 600;
     font-style: normal;
-    color: rgb(51, 51, 51);
+    color: rgb(241, 241, 241);
+    box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.btn-filtre.active{
+     padding: 8px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    border: none;
+    font-family: "Roboto", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    font-style: normal;
+    color:  rgb(122, 122, 122);
     box-shadow:  0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
